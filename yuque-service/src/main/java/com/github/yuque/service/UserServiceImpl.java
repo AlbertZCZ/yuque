@@ -1,33 +1,30 @@
 package com.github.yuque.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.beans.BeanCopier;
-import org.springframework.stereotype.Component;
-
-import com.github.yuque.dao.dataobject.UserDO;
-import com.github.yuque.dao.mapper.UserMapper;
 import com.github.yuque.api.UserService;
 import com.github.yuque.api.model.UserModel;
+import com.github.yuque.dao.dataobject.UserDO;
+import com.github.yuque.dao.mapper.UserMapper;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
-@Component
+@Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    private static final BeanCopier copier = BeanCopier.create(UserModel.class, UserDO.class, false);
-
+    @Override
     public String getUserName(Long id) {
         UserDO userDO = userMapper.getById(id);
         return userDO != null ? userDO.getName() : null;
     }
 
+    @Override
     public UserModel addUser(UserModel user) {
         UserDO userDO = new UserDO();
-        copier.copy(user, userDO, null);
 
         Long id = userMapper.insert(userDO);
         user.setId(id);
