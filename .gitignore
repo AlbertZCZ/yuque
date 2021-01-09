@@ -30,3 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 application-sensitive.properties
+application-sensitive.properties

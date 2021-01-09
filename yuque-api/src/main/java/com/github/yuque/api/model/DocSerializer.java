@@ -37,6 +37,7 @@ public class DocSerializer {
     /**
      * 是否公开 [1 - 公开, 0 - 私密]
      */
+    @JsonProperty("public")
     private Integer publicI;
     /**
      * 状态 [1 - 正常, 0 - 草稿]

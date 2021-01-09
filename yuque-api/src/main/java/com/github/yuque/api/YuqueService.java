@@ -1,6 +1,9 @@
 package com.github.yuque.api;
 
 import com.github.yuque.api.model.BookDetailSerializer;
+import com.github.yuque.api.model.DocSerializer;
+
+import java.util.List;
 
 /**
  * @program: yuque
@@ -16,4 +19,17 @@ public interface YuqueService {
      * @return
      */
     BookDetailSerializer reposDetail(String type);
+
+    /**
+     * 文档列表
+     * @return
+     */
+    List<DocSerializer> docs();
+
+    /**
+     * 文档详情
+     * @param slug
+     * @return
+     */
+    DocSerializer docDetail(String slug);
 }

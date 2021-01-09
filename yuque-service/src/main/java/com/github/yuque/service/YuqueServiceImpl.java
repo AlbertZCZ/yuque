@@ -1,14 +1,15 @@
 package com.github.yuque.service;
 
 import com.github.yuque.api.YuqueService;
-import com.github.yuque.api.model.BookDetailSerializer;
-import com.github.yuque.api.model.DetailRes;
+import com.github.yuque.api.model.*;
 import com.github.yuque.common.constant.YuqueConstant;
 import com.github.yuque.service.base.BaseThirdService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 /**
  * @program: yuque
@@ -27,6 +28,24 @@ public class YuqueServiceImpl extends BaseThirdService implements YuqueService  
         };
         DetailRes exchange = this.exchange(builder.toUriString(), HttpMethod.GET, responseBodyType, null);
 
+        return exchange.getData();
+    }
+
+    @Override
+    public List<DocSerializer> docs() {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(YuqueConstant.DOC_LIST);
+        ParameterizedTypeReference<DocListRes> responseBodyType = new ParameterizedTypeReference<DocListRes>() {
+        };
+        DocListRes exchange = this.exchange(builder.toUriString(), HttpMethod.GET, responseBodyType, null);
+        return exchange.getData();
+    }
+
+    @Override
+    public DocSerializer docDetail(String slug) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(YuqueConstant.DOC_DETAIL.concat(slug));
+        ParameterizedTypeReference<DocDetailRes> responseBodyType = new ParameterizedTypeReference<DocDetailRes>() {
+        };
+        DocDetailRes exchange = this.exchange(builder.toUriString(), HttpMethod.GET, responseBodyType, null);
         return exchange.getData();
     }
 }
